@@ -1,40 +1,41 @@
-let todo_list = [];
-let doing_list = [];
-let done_list = [];
+const todo_list = [];
+const doing_list = [];
+const done_list = [];
 
+// quando la pagina è caricata
 window.onload = function () {
     // richiesta get todo
-    let xhr_todo = new XMLHttpRequest();
-    xhr_todo.onreadystatechange = function () {
-        if (xhr_todo.readyState == 4 && xhr_todo.status == 200) {
-            todo_list = JSON.parse(xhr_todo.responseText);
+    const req_todo = new XMLHttpRequest();
+    req_todo.onreadystatechange = function () {
+        if (req_todo.readyState == 4 && req_todo.status == 200) {
+            todo_list = JSON.parse(req_todo.responseText);
             showTasks();
         }
     }
-    xhr_todo.open("GET", "http://172.17.0.99:3456/todo", true);
-    xhr_todo.send();
+    req_todo.open("GET", "http://172.17.0.99:3456/todo", true);
+    req_todo.send();
 
     // richiesta get doing
-    let xhr_doing = new XMLHttpRequest();
-    xhr_doing.onreadystatechange = function () {
-        if (xhr_doing.readyState == 4 && xhr_doing.status == 200) {
-            doing_list = JSON.parse(xhr_doing.responseText);
+    const req_doing = new XMLHttpRequest();
+    req_doing.onreadystatechange = function () {
+        if (req_doing.readyState == 4 && req_doing.status == 200) {
+            doing_list = JSON.parse(req_doing.responseText);
             showTasks();
         }
     }
-    xhr_doing.open("GET", "http://172.17.0.99:3456/doing", true);
-    xhr_doing.send();
+    req_doing.open("GET", "http://172.17.0.99:3456/doing", true);
+    req_doing.send();
 
     // richiesta get done
-    let xhr_done = new XMLHttpRequest();
-    xhr_done.onreadystatechange = function () {
-        if (xhr_done.readyState == 4 && xhr_done.status == 200) {
-            done_list = JSON.parse(xhr_done.responseText);
+    const req_done = new XMLHttpRequest();
+    req_done.onreadystatechange = function () {
+        if (req_done.readyState == 4 && req_done.status == 200) {
+            done_list = JSON.parse(req_done.responseText);
             showTasks();
         }
     }
-    xhr_done.open("GET", "http://172.17.0.99:3456/done", true);
-    xhr_done.send();
+    req_done.open("GET", "http://172.17.0.99:3456/done", true);
+    req_done.send();
 };
 
 function saveTasks() {
@@ -74,11 +75,11 @@ function saveTasks() {
 
 function addTask() {
     // input dati
-    let nome_task = prompt("Nome task");
-    let descrizione_task = prompt("Descrizione task");
-    let id_task = prompt("ID task");
+    const nome_task = prompt("Nome task");
+    const descrizione_task = prompt("Descrizione task");
+    const id_task = prompt("ID task");
 
-    let task = {
+    const task = {
         name: nome_task,
         description: descrizione_task,
         id: id_task
@@ -88,7 +89,7 @@ function addTask() {
 }
 
 function startTask() {
-    let input_id = prompt("ID task");
+    const input_id = prompt("ID task");
     let i = 0;
     for (let task of todo_list) {
         if (input_id == task.id) {
@@ -101,7 +102,7 @@ function startTask() {
 }
 
 function endTask() {
-    let input_id = prompt("ID task");
+    const input_id = prompt("ID task");
     let i = 0;
     for (let task of doing_list) {
         if (input_id == task.id) {
@@ -114,7 +115,7 @@ function endTask() {
 }
 
 function deleteTask() {
-    let input_id = prompt("ID task");
+    const input_id = prompt("ID task");
     let i = 0;
     for (let task of done_list) {
         if (input_id == task.id) {
@@ -127,7 +128,7 @@ function deleteTask() {
 
 function showTasks() {
     let lista_HTML = "<ul>";
-    let todo_list_div = document.getElementById("todolist");
+    const todo_list_div = document.getElementById("todolist");
     for (let task of todo_list) {
         lista_HTML = lista_HTML + "<li> Nome: " + task.name + " <br> Descrizione: " + task.description + "<br> ID: " + task.id + "</li>";
     };
@@ -135,7 +136,7 @@ function showTasks() {
     todo_list_div.innerHTML = lista_HTML;
 
     lista_HTML = "<ul>";
-    let doing_list_div = document.getElementById("doinglist");
+    const doing_list_div = document.getElementById("doinglist");
     for (let task of doing_list) {
         lista_HTML = lista_HTML + "<li> Nome: " + task.name + " <br> Descrizione: " + task.description + "<br> ID: " + task.id + "</li>";
     };
@@ -143,7 +144,7 @@ function showTasks() {
     doing_list_div.innerHTML = lista_HTML;
 
     lista_HTML = "<ul>";
-    let done_list_div = document.getElementById("donelist");
+    const done_list_div = document.getElementById("donelist");
     for (let task of done_list) {
         lista_HTML = lista_HTML + "<li> Nome: " + task.name + " <br> Descrizione: " + task.description + "<br> ID: " + task.id + "</li>";
     };
